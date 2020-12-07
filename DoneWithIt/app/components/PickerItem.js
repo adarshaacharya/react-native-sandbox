@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import AppText from './AppText';
 
 function PickerItem({ onPress, item }) {
@@ -13,6 +13,7 @@ function PickerItem({ onPress, item }) {
 const styles = StyleSheet.create({
   text: {
     padding: 20,
+    color: 'red',
   },
 });
 

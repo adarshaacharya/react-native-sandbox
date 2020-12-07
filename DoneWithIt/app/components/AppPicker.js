@@ -6,25 +6,26 @@ import {
   Modal,
   StyleSheet,
   TouchableWithoutFeedback,
-  View,
+  View
 } from 'react-native';
 import defaultStyles from '../config/styles';
 import AppText from './AppText';
-import PickerItem from './PickerItem';
+import { PickerItem } from './pickers';
 import Screen from './Screen';
 
 function AppPicker({
   icon,
-  items,
-  numberOfColumns =1,
   onSelectItem,
   placeholder,
+  items,
+  numberOfColumns = 1,
   PickerItemComponent = PickerItem,
   selectedItem,
   width = '100%',
 }) {
   const [modalVisible, setModalVisible] = useState(false);
 
+  console.log(selectedItem, 'app picker');
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
@@ -37,6 +38,7 @@ function AppPicker({
               style={styles.icon}
             />
           )}
+
           {selectedItem ? (
             <AppText style={styles.text}>{selectedItem.label}</AppText>
           ) : (
@@ -50,18 +52,20 @@ function AppPicker({
           />
         </View>
       </TouchableWithoutFeedback>
+
       <Modal visible={modalVisible} animationType="slide">
         <Screen>
           <Button title="Close" onPress={() => setModalVisible(false)} />
+
           <FlatList
             data={items}
-            keyExtractor={(item) => item.value.toString()}
+            keyExtractor={(item) => item.id.toString()}
             numColumns={numberOfColumns}
             renderItem={({ item }) => (
               <PickerItemComponent
                 item={item}
                 label={item.label}
-                onPress={() => {
+                onPress={(item) => {
                   setModalVisible(false);
                   onSelectItem(item);
                 }}
